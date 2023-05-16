@@ -1,12 +1,10 @@
-const sqlite3 = require('sqlite3').verbose();
-
-
+const sqlite3 = require("sqlite3").verbose();
 
 function createDbConnection() {
-  const db = new sqlite3.Database('./shuiBoard.sqlite', (error) => {
+  const db = new sqlite3.Database("./shuiBoard.sqlite", (error) => {
     if (error) return console.log(error.message);
-    createTable(db)
-  })
+    createTable(db);
+  });
 
   return db;
 }
@@ -43,7 +41,7 @@ function createTable(db) {
     
     CREATE TABLE IF NOT EXISTS user (
       ID INTEGER PRIMARY KEY AUTOINCREMENT,
-      userId TEXT NOT NULL,
+      userId INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT NOT NULL,
       password TEXT NOT NULL
     );
