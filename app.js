@@ -11,5 +11,6 @@ app.use('/api/shui', shuiRouter);
 
 
 app.listen(PORT, () => {
+  createDbConnection();
   console.log(`Server started on port ${PORT}`)
 });
