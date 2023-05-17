@@ -21,23 +21,25 @@ function createTable(db) {
       ID INTEGER PRIMARY KEY AUTOINCREMENT,
       messageId TEXT NOT NULL,
       content TEXT NOT NULL,
-      userId TEXT NOT NULL,
+      username TEXT NOT NULL,
       channelId TEXT NOT NULL,
       FOREIGN KEY (channelId) REFERENCES channel(channelId)
     );
     
     CREATE TABLE IF NOT EXISTS channel (
       ID INTEGER PRIMARY KEY AUTOINCREMENT,
-      owner TEXT NOT NULL,
+      username TEXT NOT NULL,
       channelId TEXT NOT NULL,
-      messageId VARCHAR(300),
-      FOREIGN KEY (messageId) REFERENCES message(messageId)
+      channelName TEXT NOT NULL,
+      FOREIGN KEY (username) REFERENCES user(username)
     );
     
     CREATE TABLE IF NOT EXISTS subscriber (
       ID INTEGER PRIMARY KEY AUTOINCREMENT,
       channelId TEXT NOT NULL,
-      userId TEXT NOT NULL
+      username TEXT NOT NULL,
+      FOREIGN KEY (channelId) REFERENCES channel(channelId),
+      FOREIGN KEY (username) REFERENCES user(username)
     );
     
     CREATE TABLE IF NOT EXISTS user (

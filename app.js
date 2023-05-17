@@ -1,13 +1,22 @@
 const express = require("express");
 const app = express();
 const PORT = 8000;
-
 const createDbConnection = require("./models/db");
 
 const shuiRouter = require("./routes/shui");
+const userRouter = require("./routes/userRouter");
+const channelRouter = require("./routes/channelRouter");
+const messagesRouter = require("./routes/messagesRouter");
+const subscriberRouter = require("./routes/subscriberRouter");
 
 app.use(express.json());
+
+// routes
 app.use("/api/shui", shuiRouter);
+app.use("/api/user", userRouter);
+app.use("/api/channel", channelRouter);
+app.use("/api/message", messagesRouter);
+app.use("/api/subscribe", subscriberRouter);
 
 try {
   createDbConnection();

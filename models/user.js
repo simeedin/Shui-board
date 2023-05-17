@@ -1,9 +1,7 @@
 const createDbConnection = require("./db");
 const db = createDbConnection();
-const { v4: uuidv4 } = require("uuid");
 
 function createUser(userId, username, password) {
-  // const userId = uuidv4();
   return new Promise((resolve, reject) => {
     db.run(
       `INSERT INTO user (userId, username, password) VALUES (?, ?, ?)`,
@@ -19,31 +17,65 @@ function createUser(userId, username, password) {
   });
 }
 
-// function getAllUsers() {
-//   return new Promise((resolve, reject) => {
-//     db.get(`SELECT * FROM user WHERE username = ?`,
-//     [username],
-//     (error, rows) => {
-//       if (error) {
-//         reject(error.message);
-//       } else {
-//         resolve(rows);
-//       }
-//     });
-//   });
-// }
-
-function getUserIdByUsername(username) {
+function checkUsernameExists(username) {
   return new Promise((resolve, reject) => {
     db.get(
-      `SELECT userId FROM user WHERE username = ?`,
+      `SELECT * FROM user WHERE username = ?`,
       [username],
       (error, row) => {
-        if (error) reject(error.message);
-        else resolve(row ? row.userId : null);
+        if (error) {
+          reject(error.message);
+        } else {
+          resolve(!!row); // Return true if row exists, false otherwise
+        }
       }
     );
   });
 }
 
-module.exports = { createUser, getUserIdByUsername };
+// function userIsOwner(channelId, username) {
+//   return new Promise((resolve, reject) => {
+//     db.get(
+//       `SELECT * FROM channelId = ? WHERE username = ?`, // fel här: "channelId = ?"
+//       [channelId, username],
+//       (error, row) => {
+//         if (error) {
+//           reject(error.message);
+//         } else {
+//           resolve(!!row);
+//         }
+//       }
+//     );
+//   });
+// }
+
+function userIsSubscribed(channelId, username) {
+  return new Promise((resolve, reject) => {
+    db.get(
+      `SELECT * FROM subscriber WHERE channelId = ? AND username = ?`,
+      [channelId, username],
+      (error, row) => {
+        if (error) {
+          reject(error.message);
+        } else {
+          resolve(!!row);
+        }
+      }
+    );
+  });
+}
+
+// function getUserIdByUsername(username) {
+//   return new Promise((resolve, reject) => {
+//     db.get(
+//       `SELECT userId FROM user WHERE username = ?`,
+//       [username],
+//       (error, row) => {
+//         if (error) reject(error.message);
+//         else resolve(row ? row.userId : null);
+//       }
+//     );
+//   });
+// }
+
+module.exports = { createUser, checkUsernameExists, userIsSubscribed };
