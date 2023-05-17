@@ -2,7 +2,7 @@ const createDbConnection = require("./db");
 const db = createDbConnection();
 const { v4: uuidv4 } = require("uuid");
 
-function createUser(username, password, userId) {
+function createUser(userId, username, password) {
   // const userId = uuidv4();
   return new Promise((resolve, reject) => {
     db.run(

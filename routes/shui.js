@@ -36,7 +36,7 @@ router.post("/channel", (req, res) => {
 router.get("/channel", async (req, res) => {
   const channelId = req.body.channelId;
   try {
-    const channel = await getChannel(channelId);
+    const channel = await getChannel(channelId); //undefined
     console.log(channel)
     res.json({ success: true, channel: channel });
 } catch (error) {
@@ -63,7 +63,7 @@ router.post("/signup", (req, res) => {
   // const user = await getAllUsers();
   const userId = uuidv4();
 
-  createUser(username, password, userId)
+  createUser(userId, username, password)
     .then(() => {
       // const channelId = "channelId"; // Replace with the actual channelId
       res.json({ message: "User signed up", userId: userId});

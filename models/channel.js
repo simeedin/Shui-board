@@ -11,9 +11,9 @@ const db = createDbConnection();
 // }
 
 
-function createChannel(channelId, owner) {
+function createChannel(owner, channelId) {
   return new Promise((resolve, reject) => {
-    db.run(`INSERT INTO channel (channelId, owner) VALUES (?, ?)`, [channelId, owner], (error) => {
+    db.run(`INSERT INTO channel (owner, channelId) VALUES (?, ?)`, [owner, channelId], (error) => {
       if (error) reject(error.message);
       else resolve(true);
     });
@@ -22,6 +22,7 @@ function createChannel(channelId, owner) {
 
 function getChannel(channelId) {
   return new Promise((resolve, reject) => {
+    console.log(channelId)
     db.get(
       `SELECT * FROM channel WHERE channelId = ? `,
       channelId,
