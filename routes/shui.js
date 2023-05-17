@@ -6,7 +6,7 @@ const { getBoard, createBoard } = require("../models/board");
 const { createChannel, getChannel } = require("../models/channel");
 const { subscribeToChannel } = require("../models/subscriber");
 const { createUser } = require("../models/user");
-const {createMessage} = require('../models/message');
+const {createMessage, insertMessage} = require('../models/message');
 
 router.get("/board", async (req, res) => {
   try {
@@ -50,6 +50,7 @@ router.post('/message', (req, res) => {
 
   try {
     createMessage(messageId, content, userId, channelId);
+    insertMessage(messageId, channelId)
     res.json({ success: true, message: content});
   } catch (error) {
     res.json({ success: false, message: 'Could not create message'})
