@@ -5,11 +5,10 @@ const { v4: uuidv4 } = require("uuid");
 const { getBoard, createBoard } = require("../models/board");
 const { createChannel, getChannel } = require("../models/channel");
 const { subscribeToChannel } = require("../models/subscriber");
-const { createUser, getUserIdByUsername } = require("../models/user");
+const { createUser } = require("../models/user");
 const {createMessage} = require('../models/message');
 
 router.get("/board", async (req, res) => {
-  // const channelId = req.query.channelId;
   try {
     const board = await getBoard();
 
@@ -18,14 +17,6 @@ router.get("/board", async (req, res) => {
     res.json({ success: false, message: 'Could not get board' });
 }
 
-  // getBoard()
-  //   .then(() => {
-  //     res.json({ message: "Board retrieved" });
-  //   })
-  //   .catch((error) => {
-  //     console.log("Error retrieving board:", error);
-  //     res.status(500).json({ error: "Failed to retrieve board" });
-  //   });
 });
 
 router.post("/channel", (req, res) => {
@@ -54,11 +45,11 @@ router.get("/channel", async (req, res) => {
 });
 
 router.post('/message', (req, res) => {
-  const {channelId, userId, content} = req.body;
+  const {content, userId, channelId} = req.body;
   const messageId = uuidv4();
-  
+
   try {
-    createMessage(channelId, userId, content, messageId);
+    createMessage(messageId, content, userId, channelId);
     res.json({ success: true, message: content});
   } catch (error) {
     res.json({ success: false, message: 'Could not create message'})

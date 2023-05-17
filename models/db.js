@@ -21,7 +21,7 @@ function createTable(db) {
       ID INTEGER PRIMARY KEY AUTOINCREMENT,
       messageId TEXT NOT NULL,
       content TEXT NOT NULL,
-      user TEXT NOT NULL,
+      userId TEXT NOT NULL,
       channelId TEXT NOT NULL,
       FOREIGN KEY (channelId) REFERENCES channel(channelId)
     );

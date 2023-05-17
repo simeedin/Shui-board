@@ -1,11 +1,11 @@
 const createDbConnection = require("./db");
 const db = createDbConnection();
 
-function createMessage(content, userId, channelId, messageId) {
+function createMessage(messageId, content, userId, channelId) {
   return new Promise((resolve, reject) => {
     db.run(
-      `INSERT INTO message (content, user, channelId, messageId) VALUES (?, ?, ?, ?)`,
-      [content, userId, channelId, messageId],
+      `INSERT INTO message (messageId, content, userId, channelId) VALUES (?, ?, ?, ?)`,
+      [messageId, content, userId, channelId],
       (error) => {
         if (error) reject(error.message);
         else resolve(true);

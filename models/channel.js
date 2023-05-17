@@ -20,13 +20,11 @@ function createChannel(channelId, owner) {
   });
 }
 
-
-
 function getChannel(channelId) {
   return new Promise((resolve, reject) => {
     db.get(
-      `SELECT owner FROM channel WHERE channelId = ? `,
-      [channelId],
+      `SELECT * FROM channel WHERE channelId = ? `,
+      channelId,
       (error, rows) => {
         if (error) reject(error.message);
         else resolve(rows);
