@@ -2,8 +2,8 @@ const createDbConnection = require("./db");
 const db = createDbConnection();
 const { v4: uuidv4 } = require("uuid");
 
-function createUser(username, password) {
-  const userId = uuidv4();
+function createUser(username, password, userId) {
+  // const userId = uuidv4();
   return new Promise((resolve, reject) => {
     db.run(
       `INSERT INTO user (userId, username, password) VALUES (?, ?, ?)`,
@@ -18,6 +18,20 @@ function createUser(username, password) {
     );
   });
 }
+
+// function getAllUsers() {
+//   return new Promise((resolve, reject) => {
+//     db.get(`SELECT * FROM user WHERE username = ?`,
+//     [username],
+//     (error, rows) => {
+//       if (error) {
+//         reject(error.message);
+//       } else {
+//         resolve(rows);
+//       }
+//     });
+//   });
+// }
 
 function getUserIdByUsername(username) {
   return new Promise((resolve, reject) => {
