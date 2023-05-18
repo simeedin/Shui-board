@@ -10,14 +10,12 @@ router.post("/", checkChannelId, checkValidUser, (req, res) => {
 
   try {
     createMessage(messageId, content, username, channelId);
-    // insertMessage(messageId, channelId);
     res.json({ success: true, message: content, username: username });
   } catch (error) {
     res.json({ success: false, message: "Could not create message" });
   }
 });
 
-//get all messages som finns i en channel
 router.get("/", checkChannelId, async (req, res) => {
   const { channelId } = req.body;
 

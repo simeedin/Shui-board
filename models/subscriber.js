@@ -14,7 +14,6 @@ function subscribeToChannel(channelId, username) {
   });
 }
 
-//get all subsrcibers from a channel
 function getSubscribers(channelId) {
   return new Promise((resolve, reject) => {
     db.all(

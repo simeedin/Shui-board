@@ -1,15 +1,6 @@
 const createDbConnection = require("./db");
 const db = createDbConnection();
 
-// function createChannel(owner) {
-//   return new Promise((resolve, reject) => {
-//     db.run(`INSERT INTO channel (owner) VALUES (?)`, [owner], (error) => {
-//       if (error) reject(error.message);
-//       else resolve(true);
-//     });
-//   });
-// }
-
 function createChannel(username, channelId, channelName) {
   return new Promise((resolve, reject) => {
     db.run(
@@ -46,7 +37,7 @@ function checkChannelExists(channelId) {
         if (error) {
           reject(error.message);
         } else {
-          resolve(!!row); // Return true if row exists, false otherwise
+          resolve(!!row);
         }
       }
     );

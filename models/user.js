@@ -26,28 +26,12 @@ function checkUsernameExists(username) {
         if (error) {
           reject(error.message);
         } else {
-          resolve(!!row); // Return true if row exists, false otherwise
+          resolve(!!row);
         }
       }
     );
   });
 }
-
-// function userIsOwner(channelId, username) {
-//   return new Promise((resolve, reject) => {
-//     db.get(
-//       `SELECT * FROM channelId = ? WHERE username = ?`, // fel här: "channelId = ?"
-//       [channelId, username],
-//       (error, row) => {
-//         if (error) {
-//           reject(error.message);
-//         } else {
-//           resolve(!!row);
-//         }
-//       }
-//     );
-//   });
-// }
 
 function userIsSubscribed(channelId, username) {
   return new Promise((resolve, reject) => {
@@ -64,18 +48,5 @@ function userIsSubscribed(channelId, username) {
     );
   });
 }
-
-// function getUserIdByUsername(username) {
-//   return new Promise((resolve, reject) => {
-//     db.get(
-//       `SELECT userId FROM user WHERE username = ?`,
-//       [username],
-//       (error, row) => {
-//         if (error) reject(error.message);
-//         else resolve(row ? row.userId : null);
-//       }
-//     );
-//   });
-// }
 
 module.exports = { createUser, checkUsernameExists, userIsSubscribed };

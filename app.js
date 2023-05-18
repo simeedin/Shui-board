@@ -11,7 +11,6 @@ const subscriberRouter = require("./routes/subscriberRouter");
 
 app.use(express.json());
 
-// routes
 app.use("/api/shui", shuiRouter);
 app.use("/api/user", userRouter);
 app.use("/api/channel", channelRouter);

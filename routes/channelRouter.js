@@ -12,12 +12,12 @@ const { subscribeToChannel } = require("../models/subscriber");
 
 router.post("/", checkUser, checkChannelName, (req, res) => {
   const channelId = uuidv4();
-  const { username, channelName } = req.body; // username = owner
+  const { username, channelName } = req.body;
 
   createChannel(username, channelId, channelName)
     .then(() => {
       createBoard(channelId);
-      subscribeToChannel(channelId, username); //when you create channel, become subscriber
+      subscribeToChannel(channelId, username);
       res.json({ message: "Channel created", channelId: channelId });
     })
     .catch((error) => {

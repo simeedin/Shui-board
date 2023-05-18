@@ -11,7 +11,6 @@ async function checkUser(req, res, next) {
   const { username } = req.body;
   const check = await checkUsernameExists(username);
 
-  // if valid user exists
   if (check == true) {
     next();
   } else {
@@ -19,11 +18,9 @@ async function checkUser(req, res, next) {
   }
 }
 
-//for posting message:
 async function checkValidUser(req, res, next) {
   const { username, channelId } = req.body;
   const userExists = await checkUsernameExists(username);
-  // user is subscribed or owns channel:
   const isSubscribed = await userIsSubscribed(channelId, username);
 
   if (userExists && isSubscribed) {
