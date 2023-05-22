@@ -22,6 +22,7 @@ function createTable(db) {
       messageId TEXT NOT NULL,
       content TEXT NOT NULL,
       username TEXT NOT NULL,
+      createdAt TEXT NOT NULL,
       channelId TEXT NOT NULL,
       FOREIGN KEY (channelId) REFERENCES channel(channelId)
     );

@@ -30,7 +30,7 @@ function getChannel(channelId) {
 
 function checkChannelExists(channelId) {
   return new Promise((resolve, reject) => {
-    db.get(
+    db.all(
       `SELECT * FROM channel WHERE channelId = ?`,
       [channelId],
       (error, row) => {

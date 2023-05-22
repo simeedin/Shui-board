@@ -1,11 +1,11 @@
 const createDbConnection = require("./db");
 const db = createDbConnection();
 
-function createMessage(messageId, content, username, channelId) {
+function createMessage(messageId, content, username, createdAt, channelId) {
   return new Promise((resolve, reject) => {
     db.run(
-      `INSERT INTO message (messageId, content, username, channelId) VALUES (?, ?, ?, ?)`,
-      [messageId, content, username, channelId],
+      `INSERT INTO message (messageId, content, username, createdAt, channelId) VALUES (?, ?, ?, ?, ?)`,
+      [messageId, content, username, createdAt, channelId],
       (error) => {
         if (error) reject(error.message);
         else resolve(true);
@@ -14,10 +14,17 @@ function createMessage(messageId, content, username, channelId) {
   });
 }
 
+async function addMessage(messageId, content, username, createdAt, channelId) {
+  for (const id of channelId) {
+    await createMessage(messageId, content, username, createdAt, id);
+  }
+}
+
+
 function displayChannelMessages(channelId) {
   return new Promise((resolve, reject) => {
     db.all(
-      `SELECT * FROM message WHERE channelId = ? `,
+      `SELECT * FROM message WHERE channelId = ? ORDER BY createdAt `,
       channelId,
       (error, rows) => {
         if (error) reject(error.message);
@@ -27,4 +34,4 @@ function displayChannelMessages(channelId) {
   });
 }
 
-module.exports = { createMessage, displayChannelMessages };
+module.exports = { addMessage, displayChannelMessages };

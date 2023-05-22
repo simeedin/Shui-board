@@ -35,7 +35,7 @@ function checkUsernameExists(username) {
 
 function userIsSubscribed(channelId, username) {
   return new Promise((resolve, reject) => {
-    db.get(
+    db.all(
       `SELECT * FROM subscriber WHERE channelId = ? AND username = ?`,
       [channelId, username],
       (error, row) => {
